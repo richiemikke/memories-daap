@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap');
+
+
+
+body {
+  margin: 10px;
+  
+}
+
+.form-row{
+  width: 38rem;
+  margin-left: 20px;
+  margin-right: 200px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  
+}
+
+.balance {
+  color: black;
+  font-family: "Supermercado One", sans-serif;
+  font-size: x-large;
+  list-style: none;
+  text-decoration: none;
+}
+.brand-name {
+  font-family: "Supermercado One", sans-serif;
+
+}
+.btn{
+  margin-left: 8px;
+}
+
+.tm{
+  color: white;
+}
+
+.card{
+  width: 37rem;
+  margin: 20px;
+}
+
