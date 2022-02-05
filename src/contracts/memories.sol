@@ -27,6 +27,8 @@ contract Memories {
         uint likes;
         uint dislikes;
         uint tips;
+        uint commentCounts;
+        string[] comments;
     }
 
     mapping (uint => Memory) internal memories;// mapping each struct to a uint
@@ -39,13 +41,15 @@ contract Memories {
         uint _likes = 0;
         uint _dislikes = 0;
         uint _tips =0;
+        uint _commentCount = 0;
         memories[memoriesLength] = Memory(
             payable(msg.sender),
             _name,
             _description,
             _likes,
             _dislikes,
-            _tips
+            _tips,
+            _commentCount
         );
         memoriesLength++;
     }
@@ -64,7 +68,8 @@ contract Memories {
             memories[_index].description,  
             memories[_index].likes,
             memories[_index].dislikes,
-            memories[_index].tips
+            memories[_index].tips,
+            memories[_index].commentCount
         );
     }
 
@@ -97,9 +102,18 @@ contract Memories {
           ),
           "Transfer failed."
         );
-        memories[_index].tips++;
+        memories[_index].tips = memories[_index].tips + _price;
     }
 
+  function addComment(uint _index, string memory _comment) public{
+    memories[_index].comment.push(_comment);
+    memories[_index].commentCount++;
+  
+  }
+  
+  function getComment(uint _index, uint _comment) public view returns(string memory){
+    return(memories[_index].comments[_comment]);
+  }
 
     // to get the length of memories
     function getmemoriesLength() public view returns (uint) {
