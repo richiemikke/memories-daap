@@ -119,6 +119,7 @@ function App() {
   const Like = async (_index) => {
     try {
       await contract.methods.Like(_index).send({ from: address });
+      
       getMemories();
       getBalance();
     } catch (error) {
