@@ -2,6 +2,9 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
+// imported safemath
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol";
+
 interface IERC20Token {
   function transfer(address, uint256) external returns (bool);
   function approve(address, uint256) external returns (bool);
@@ -15,18 +18,21 @@ interface IERC20Token {
 }
 
 contract Memories {
+    using SafeMath for uint;
 
-    uint internal memoriesLength = 0;
+    uint public memoriesLength = 0; // change the memriesLength to public
     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
-// a struct with all the memory values
+    // a struct with all the memory values
     struct Memory {
         address payable owner;
         string name;
         string description;
+        string[] comments;
         uint likes;
         uint dislikes;
         uint tips;
+        uint commentCounts;
     }
 
     mapping (uint => Memory) internal memories;// mapping each struct to a uint
@@ -34,18 +40,22 @@ contract Memories {
      // to add a new memory to the mapping
     function addMemory(
         string memory _name,
-        string memory _description 
+        string memory _description,
+        string[] memory _comments
     ) public {
         uint _likes = 0;
         uint _dislikes = 0;
         uint _tips =0;
+        uint _commentCounts = 0;
         memories[memoriesLength] = Memory(
             payable(msg.sender),
             _name,
             _description,
+            _comments,
             _likes,
             _dislikes,
-            _tips
+            _tips,
+            _commentCounts
         );
         memoriesLength++;
     }
@@ -56,6 +66,7 @@ contract Memories {
         string memory, 
         uint, 
         uint,
+        uint,
         uint
     ) {
         return (
@@ -64,7 +75,8 @@ contract Memories {
             memories[_index].description,  
             memories[_index].likes,
             memories[_index].dislikes,
-            memories[_index].tips
+            memories[_index].tips,
+            memories[_index].commentCounts
         );
     }
 
@@ -97,9 +109,21 @@ contract Memories {
           ),
           "Transfer failed."
         );
-        memories[_index].tips++;
+        memories[_index].tips = memories[_index].tips.add(_price);
     }
 
+
+    // adding comment data
+    function addComment(uint _index, string memory _comment) public{
+        memories[_index].comments.push(_comment);
+        memories[_index].commentCounts++;
+
+    }
+
+    // getting comment data
+    function getComment(uint _index, uint _comment) public view returns(string memory){
+        return(memories[_index].comments[_comment]);
+    }
 
     // to get the length of memories
     function getmemoriesLength() public view returns (uint) {
