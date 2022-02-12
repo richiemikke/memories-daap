@@ -110,7 +110,7 @@ function App() {
         .send({ from: address });
       getMemories();
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -122,7 +122,7 @@ function App() {
       getMemories();
       getBalance();
     } catch (error) {
-      console.log(error);
+      alert.log(error);
     }};
 
     const disLike = async (_index) => {
@@ -131,7 +131,7 @@ function App() {
         getMemories();
         getBalance();
       } catch (error) {
-        console.log(error);
+        alert(error);
       }};
 
       const deleteMemory = async (_index) => {
@@ -140,7 +140,7 @@ function App() {
           getMemories();
           getBalance();
         } catch (error) {
-          console.log(error);
+          alert(error);
         }};
 
 
@@ -156,8 +156,9 @@ function App() {
             await contract.methods.Tip(_index, cost).send({ from: address });
             getMemories();
             getBalance();
+            alert("you have successfully tip the writer");
           } catch (error) {
-            console.log(error);
+            alert(error);
           }};
 
     
