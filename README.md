@@ -4,7 +4,7 @@ https://clever-shockley-4632b4.netlify.app/
 
 # Description
 
-Memories is a daap where users can post interesting and significant memories of their life and other users can read them and decide to either like or dislike the story and they can also tip the writer of the story if they enjoy reading the story and the tipping price must be above 1 cusd. The owner of the memory can also decide to remove the memory from the block-chain. Creating this daap has helped me gain more understanding about solidity and the celo block-chain.
+Memories is a daap where users can  post interesting and significant memories of their life and other users can read them and decide to either like or dislike the story and they can also tip the writer of the story if they enjoy reading the story and the tipping price must be above 1 cusd. The owner of the memory can also decide to remove the memory from the block-chain. Creating this daap has helped me gain more understanding about solidity and the celo block-chain.
 
 # Getting Started with Create React App
 
