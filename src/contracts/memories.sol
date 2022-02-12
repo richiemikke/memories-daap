@@ -16,7 +16,7 @@ interface IERC20Token {
 
 contract Memories {
 
-    uint internal memoriesLength = 0;
+    uint public memoriesLength = 0;
     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
 // a struct with all the memory values
@@ -27,6 +27,8 @@ contract Memories {
         uint likes;
         uint dislikes;
         uint tips;
+        uint commentCounts;
+        string[] comments;
     }
 
     mapping (uint => Memory) internal memories;// mapping each struct to a uint
@@ -34,18 +36,25 @@ contract Memories {
      // to add a new memory to the mapping
     function addMemory(
         string memory _name,
-        string memory _description 
+        string memory _description
+
     ) public {
         uint _likes = 0;
         uint _dislikes = 0;
         uint _tips =0;
+        uint _commentCount = 0;
+        string[] memory _comments;
+        
         memories[memoriesLength] = Memory(
             payable(msg.sender),
             _name,
             _description,
             _likes,
             _dislikes,
-            _tips
+            _tips,
+            _commentCount,
+            _comments
+
         );
         memoriesLength++;
     }
@@ -56,7 +65,8 @@ contract Memories {
         string memory, 
         uint, 
         uint,
-        uint
+        uint,
+        string[] memory
     ) {
         return (
             memories[_index].owner,
@@ -64,26 +74,43 @@ contract Memories {
             memories[_index].description,  
             memories[_index].likes,
             memories[_index].dislikes,
-            memories[_index].tips
+            memories[_index].tips,
+            memories[_index].comments
         );
     }
 
-     // deleting a memory from the mapping and making sure only the owner of the memory can delete the memory 
+     // to delete a memory from the mapping and making sure only the owner of the memory can delete the memory 
      function deleteMemory(uint _index) external{
         require(msg.sender == memories[_index].owner, "you cannot delete this memory");
         delete memories[_index];
     }
+
 
     // anyone can like a memory except the owner
     function Like(uint _index) public{
     require(msg.sender != memories[_index].owner, "You cannot like your own memory");
         memories[_index].likes++;
     }
+
+
      // anyone can dislike a memory except the owner
     function disLike(uint _index) external{
         require(msg.sender != memories[_index].owner, "You cannot dislike your own memory");
         memories[_index].dislikes++;
     }
+
+
+    // to add comment to a memory
+    function addComment(uint _index, string memory _comment) public{
+    memories[_index].comments.push(_comment);
+    memories[_index].commentCounts++;
+
+  }
+   
+   // to get the comments from a memory
+  function getComments(uint _index) public view returns(string[] memory){
+    return(memories[_index].comments);
+  }
 
    
     // to tip the creator of the memory and the ammount should be more than 1 cUSD
