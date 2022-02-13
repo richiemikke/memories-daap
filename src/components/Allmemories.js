@@ -12,7 +12,7 @@ export const Allmemories = (props) => {
 <button type="button" class="btn btn-danger btn-sm" onClick={ ()=> props.disLike(mem.index)}>Dislike</button>
 <button type="button" onClick={ ()=> props.Tip(mem.index)} class="btn btn-success btn-sm">Tip</button>
 <button type="button" onClick={ ()=> props.deleteMemory(mem.index)}class="btn btn-danger btn-sm">Remove</button>
-<p class="card-text"><small class="text-muted">Only the owner of this story can delete this story and the owner cannot like or dislike their own story </small></p>
+<p class="card-text"><small class="text-muted">Note: Only the owner of this story can delete this story and the owner cannot like or dislike their own story and the tip price must be greater than or equal to 1 cUSD </small></p>
 
   </div>
 </div>
